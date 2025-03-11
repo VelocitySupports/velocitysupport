@@ -15,6 +15,10 @@
             padding: 0;
             position: relative;
             overflow: hidden;
+            -webkit-user-select: none; /* Disable text selection */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         body::before {
             content: '';
@@ -141,7 +145,7 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;" onkeydown="if(event.keyCode==123) return false;" onmousedown="if(event.button==2) return false;">
     <div class="container">
         <h1>
             <img src="https://cdn.discordapp.com/icons/943223926509699072/d08e6e1257804501fa056a967248711e.png?size=4096" alt="Velocity Logo" class="velocity-logo">
@@ -164,6 +168,24 @@
     </div>
 
     <script>
+        // Disable right-click
+        document.oncontextmenu = function() { return false; };
+        // Disable F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85) || (e.ctrlKey && e.keyCode == 83)) {
+                return false;
+            }
+        };
+        // Disable inspect via mouse
+        document.onmousedown = function(e) {
+            if (e.button == 2) return false;
+        };
+        // Disable opening dev tools programmatically
+        window.ondevtoolsopened = function() {
+            alert("Dev tools disabled!");
+            window.location.href = "about:blank"; // Redirect to blank page
+        };
+
         function openMenu() {
             document.getElementById("fixMenu").style.display = "block";
         }
